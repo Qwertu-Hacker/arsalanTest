@@ -6,15 +6,35 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct UserRowView: View {
+    
+    let user: Usert
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 12) {
+            KFImage(URL(string: user.profileImageUrla))
+                .resizable()
+                .scaledToFill()
+                .clipShape(Circle())
+                .frame(width: 56, height: 56)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(user.fullnamea)
+                    .font(.subheadline).bold()
+                
+                Text(user.namea)
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            Spacer()
+
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
+    
 }
 
-struct UserRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        UserRowView()
-    }
-}
+
+

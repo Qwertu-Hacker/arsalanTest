@@ -6,11 +6,17 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ProfileView: View {
     @State private var selectionFilter: TweetFilterViewModel = .tweets
+    @ObservedObject var viewModel: ProfileViewModel
     @Environment(\.presentationMode) var mode
     @Namespace var animation
+    
+    init(user: Usert) {
+        self.viewModel = ProfileViewModel(user: user)
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,12 +34,18 @@ struct ProfileView: View {
             Spacer()
 
         }
+        .navigationBarHidden(true)
     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(user: Usert(id: NSUUID().uuidString,
+                                namea: "batman",
+                                fullnamea: "Bruce Vaine",
+                                emaila: "batman@gmail.com",
+                                passworda: "",
+                                profileImageUrla: ""))
     }
 }
 
@@ -52,9 +64,12 @@ extension ProfileView {
                         .resizable()
                         .frame(width: 20, height: 16)
                         .foregroundColor(.white)
-                        .offset(x: 16, y: 12)
+                        .offset(x: 16, y: 0)
                 }
-            Circle()
+                KFImage(URL(string: viewModel.user.profileImageUrla))
+                    .resizable()
+                    .scaledToFill()
+                    .clipShape(Circle())
                 .frame(width: 72, height: 72)
                 .offset(x: 16, y: 24)
             }
@@ -86,13 +101,13 @@ extension ProfileView {
     var userInfoDetails: some View {
     VStack(alignment: .leading, spacing: 4) {
         HStack {
-            Text("Heat ledger")
+            Text(viewModel.user.fullnamea)
                 .font(.title2).bold()
             Image(systemName: "checkmark.seal.fill")
                 .foregroundColor(Color(.systemBlue))
         }
         
-        Text("@joker")
+        Text("@\(viewModel.user.namea)")
             .font(.subheadline)
             .foregroundColor(.gray)
         
@@ -117,29 +132,7 @@ extension ProfileView {
         .font(.caption)
         .foregroundColor(.gray)
         
-        HStack(spacing: 24) {
-            
-            HStack(spacing: 4) {
-                Text("807")
-                    .font(.subheadline)
-                    .bold()
-            
-                Text("Folowing")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-        
-            HStack(spacing: 4) {
-                Text("6.5M")
-                    .font(.subheadline)
-                    .bold()
-                
-                Text("Folowers")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                
-                }
-            }
+        UserStatsView()
         .padding(.vertical)
         }
     .padding(.horizontal)
@@ -176,8 +169,8 @@ extension ProfileView {
     var tweetsView: some View {
         ScrollView {
             LazyVStack {
-                ForEach(0...9, id: \.self) { _ in
-                    TweetRowView()
+                ForEach(viewModel.tweets, id: \.self) { tweet in
+                    TweetRowView(tweet: tweet)
                         .padding()
                 }
             }

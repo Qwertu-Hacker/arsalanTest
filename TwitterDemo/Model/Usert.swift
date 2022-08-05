@@ -6,9 +6,10 @@
 //
 
 import FirebaseFirestoreSwift
-import Combine
+
     
-struct Usert: Identifiable, Decodable {
+struct Usert: Hashable, Identifiable, Decodable {
+    
     @DocumentID var id: String?
         var namea: String
         var fullnamea: String

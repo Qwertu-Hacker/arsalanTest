@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+class TweetRowViewModel: ObservableObject {
+    let tweet: Tweett
+    private let service = TweetService()
+    
+    
+    init(tweet: Tweett) {
+        self.tweet = tweet
+    }
+    
+    func likeTweet() {
+        service.likeTweet(tweet)
+    }
+}
