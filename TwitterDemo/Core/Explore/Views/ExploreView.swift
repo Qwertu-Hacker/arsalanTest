@@ -11,12 +11,16 @@ struct ExploreView: View {
     @ObservedObject var viewModel = ExploreViewModel()
         
     var body: some View {
-            VStack {
-                SerchBar(text: $viewModel.serchText)
-                    .padding()
+//        VStack{
+            
+
                 ScrollView {
+                    SerchBar(text: $viewModel.serchText)
+                        .frame(maxWidth: .infinity ,alignment: .leading)
+                        .frame(height: 20)
+                        .padding()
                     LazyVStack {
-                        ForEach(viewModel.serchableUsers, id: \.self) { user in
+                        ForEach(viewModel.serchableUsers) { user in
                             NavigationLink {
                                 ProfileView(user: user)
                             } label: {
@@ -25,9 +29,16 @@ struct ExploreView: View {
                         }
                     }
                 }
-            }
-            .navigationTitle("Explore")
+//        }
+//            .navigationTitle("Explore")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Explore")
+                        .padding(.top, 10)
+                        .font(.headline)
+                }
+            }
     }
 }
 

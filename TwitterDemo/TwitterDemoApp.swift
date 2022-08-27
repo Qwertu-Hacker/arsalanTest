@@ -18,9 +18,9 @@ struct TwitterDemoApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+//            NavigationView {
                 ContentView()
-            }
+//            }
             .environmentObject(viewModel)
 
         }

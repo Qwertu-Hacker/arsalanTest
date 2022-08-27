@@ -9,31 +9,41 @@ import SwiftUI
 import Kingfisher
 
 struct TweetRowView: View {
-    let viewModel: TweetRowViewModel
-    
+    @State private var goToProfile = false
+    @ObservedObject var viewModel: TweetRowViewModel
     init(tweet: Tweett) {
         self.viewModel = TweetRowViewModel(tweet: tweet)
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            if let user = viewModel.tweet.user {
+            if let user = viewModel.tweet.user.self {
+                
                 HStack(alignment: .top, spacing: 12) {
-                    KFImage(URL(string: user.profileImageUrla))
+                    Button {
+                        goToProfile.toggle()
+                    } label: {
+                        
+                    KFImage(URL(string: user.profileImageUrl))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 56, height: 56)
                         .clipShape(Circle())
-                    
+                    }
+                    .fullScreenCover(isPresented: $goToProfile) {
+                        ProfileView(user: user)
+                    }
                     VStack(alignment: .leading, spacing: 4) {
                             HStack {
-                                Text(user.fullnamea)
+                                Text(user.fullname)
                                     .font(.subheadline).bold()
-                                Text("@\(user.namea)")
+                                Text("@\(user.username)")
                                     .foregroundColor(.gray)
                                     .font(.caption)
                                 
-                                Text("2w")
+                                Spacer()
+                                
+                                Text(viewModel.tweet.timestamp.dateValue().formatted(date: Date.FormatStyle.DateStyle.omitted, time: Date.FormatStyle.TimeStyle.shortened))
                                     .foregroundColor(.gray)
                                     .font(.caption)
                             
@@ -61,11 +71,14 @@ struct TweetRowView: View {
                 }
                 Spacer()
                 Button {
-                    viewModel.likeTweet()
+                    viewModel.tweet.didLIke ?? false ? viewModel.unlikeTweet() : viewModel.likeTweet()
                 } label: {
-                    Image(systemName: "heart")
+                    Image(systemName: viewModel.tweet.didLIke ?? false ? "heart.fill" : "heart")
                         .font(.subheadline)
+                        .foregroundColor(viewModel.tweet.didLIke ?? false ? .red : .gray)
                 }
+                Text("\(viewModel.tweet.likes)")
+                 
                 Spacer()
                 Button {
                     
@@ -77,6 +90,7 @@ struct TweetRowView: View {
             .padding()
             .foregroundColor(.gray)
             Divider()
+            
         }
 //        .padding()
 

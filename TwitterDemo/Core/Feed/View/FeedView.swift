@@ -14,10 +14,9 @@ struct FeedView: View {
         ZStack(alignment: .bottomTrailing) {
             ScrollView {
                 LazyVStack {
-                    ForEach(viewModel.tweets, id: \.self) { tweet in
+                    ForEach(viewModel.tweets) { tweet in
                         TweetRowView(tweet: tweet)
                             .padding()
-                        
                     }
                 }
             }
@@ -39,6 +38,7 @@ struct FeedView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+//        .navigationBarHidden(true)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  .swift
 //  TwitterDemo
 //
 //  Created by Igor Kononov on 23.07.2022.
@@ -10,6 +10,7 @@ import Kingfisher
 
 struct ProfileView: View {
     @State private var selectionFilter: TweetFilterViewModel = .tweets
+    @State private var goToMessage = false
     @ObservedObject var viewModel: ProfileViewModel
     @Environment(\.presentationMode) var mode
     @Namespace var animation
@@ -19,6 +20,7 @@ struct ProfileView: View {
     }
     
     var body: some View {
+        NavigationView {
         VStack(alignment: .leading) {
             
             headerView
@@ -33,6 +35,8 @@ struct ProfileView: View {
             
             Spacer()
 
+            }
+        .navigationBarHidden(true)
         }
         .navigationBarHidden(true)
     }
@@ -41,11 +45,11 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView(user: Usert(id: NSUUID().uuidString,
-                                namea: "batman",
-                                fullnamea: "Bruce Vaine",
-                                emaila: "batman@gmail.com",
-                                passworda: "",
-                                profileImageUrla: ""))
+                                username: "batman",
+                                fullname: "Bruce Vaine",
+                                profileImageUrl: "",
+                                email: "batman@gmail.com",
+                                password: ""))
     }
 }
 
@@ -66,12 +70,19 @@ extension ProfileView {
                         .foregroundColor(.white)
                         .offset(x: 16, y: 0)
                 }
-                KFImage(URL(string: viewModel.user.profileImageUrla))
+                ZStack {
+                    Circle()
+                        .foregroundColor(.white)
+                        .frame(width: 95, height: 95)
+                        .offset(x: 16, y: 24)
+                    
+                KFImage(URL(string: viewModel.user.profileImageUrl))
                     .resizable()
                     .scaledToFill()
                     .clipShape(Circle())
-                .frame(width: 72, height: 72)
+                .frame(width: 85, height: 85)
                 .offset(x: 16, y: 24)
+                }
             }
         }
         .frame(height:100)
@@ -87,7 +98,7 @@ extension ProfileView {
             Button {
             
             } label: {
-                Text("Edit Profile")
+                Text(viewModel.actionButtonTitle)
                     .font(.subheadline).bold()
                     .frame(width: 120, height: 32)
                     .foregroundColor(.black)
@@ -96,18 +107,35 @@ extension ProfileView {
         
         }
         .padding(.trailing)
+        .offset(y: 5)
     
     }
     var userInfoDetails: some View {
     VStack(alignment: .leading, spacing: 4) {
         HStack {
-            Text(viewModel.user.fullnamea)
+            Text(viewModel.user.fullname)
                 .font(.title2).bold()
             Image(systemName: "checkmark.seal.fill")
                 .foregroundColor(Color(.systemBlue))
+            
+            Spacer()
+            
+            NavigationLink {
+                MessagesView(user: viewModel.user)
+                    } label: {
+                Text("Messages")
+                    .font(.subheadline).bold()
+                    .frame(width: 120, height: 32)
+                    .foregroundColor(.white)
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1))
+                    .background(Color(.systemBlue))
+                    .clipShape(Capsule())
+                
+            }
+        
         }
         
-        Text("@\(viewModel.user.namea)")
+        Text("@\(viewModel.user.username)")
             .font(.subheadline)
             .foregroundColor(.gray)
         
@@ -169,7 +197,7 @@ extension ProfileView {
     var tweetsView: some View {
         ScrollView {
             LazyVStack {
-                ForEach(viewModel.tweets, id: \.self) { tweet in
+                ForEach(viewModel.tweets(forFilter: self.selectionFilter)) { tweet in
                     TweetRowView(tweet: tweet)
                         .padding()
                 }
