@@ -10,6 +10,7 @@ import SwiftUI
 struct MainTabView: View {
     @State private var selectedIndex = 0
     @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var vm: ChatViewModel
     var body: some View {
         if let user = authViewModel.currentUser {
         TabView(selection: $selectedIndex) {

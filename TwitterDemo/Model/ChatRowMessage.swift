@@ -10,15 +10,13 @@ import Firebase
 
 struct ChatRowMessages: Identifiable, Decodable {
     
-        @DocumentID var id: String?
+    @DocumentID var id: String?
     
     let fromId: String
     let toId: String
     let text: String
     let timestamp: Date
-    var username: String
-    var fullname: String
-    var profileImageUrl: String
+
 //    var hasUnreadMessage = false
     var user: Usert?
     
@@ -27,4 +25,5 @@ struct ChatRowMessages: Identifiable, Decodable {
         formater.dateTimeStyle = .numeric
         return formater.localizedString(for: timestamp, relativeTo: Date())
     }
+    
 }

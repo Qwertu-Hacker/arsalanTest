@@ -21,7 +21,7 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationView {
-        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
             
             headerView
             
@@ -93,7 +93,7 @@ extension ProfileView {
             Image(systemName: "bell.badge")
             .font(.title3)
                 .padding(6)
-                .overlay(Circle().stroke(Color.gray,    lineWidth: 1))
+                .overlay(Circle().stroke(Color.gray, lineWidth: 1))
         
             Button {
             
@@ -102,7 +102,7 @@ extension ProfileView {
                     .font(.subheadline).bold()
                     .frame(width: 120, height: 32)
                     .foregroundColor(.black)
-                    .overlay(RoundedRectangle(cornerRadius:     20).stroke(Color.gray, lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray, lineWidth: 1))
             }
         
         }

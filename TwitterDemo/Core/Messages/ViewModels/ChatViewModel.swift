@@ -14,13 +14,13 @@ class ChatViewModel: ObservableObject {
     @Published var errorMessage = ""
     @Published var chatMessages: [ChatMessages] = []
     @Published var recentMessages: [ChatRowMessages] = []
-//    let userService = UserService()
-    let user: Usert?
-    
-    init(user: Usert?) {
+    let user: Usert
+    let service = PerehodNaUsera()
+    let userService = UserService()
+    init(user: Usert) {
         self.user = user
         feachMessages()
-        fetchRecentMessages()
+        self.fetchRecentMessages()
     }
     
     
@@ -30,7 +30,7 @@ class ChatViewModel: ObservableObject {
      func feachMessages() {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
         
-         guard let toId = user?.id else { return }
+         guard let toId = user.id else { return }
         Firestore.firestore().collection("messages")
             .document(fromId)
             .collection(toId)
@@ -47,41 +47,25 @@ class ChatViewModel: ObservableObject {
                 
                 
                 self.chatMessages.sort { $0.timestamp.dateValue() < $1.timestamp.dateValue() }
-//                print(self.recentMessages)
             }
     }
-    
     func fetchRecentMessages() {
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-//            guard let toId = user?.id else { return }
-
-           Firestore.firestore().collection("recent_messages")
-                .document(uid)
-                .collection("messages")
-                .addSnapshotListener { querySnapshot, error in
-                    if let error = error {
-                        print(error)
-                        return
-                    }
-                    guard let documents = querySnapshot?.documents else { return }
-
-                    self.recentMessages = documents.compactMap { document -> ChatRowMessages? in
+        guard let fromId = user.id else { return }
+        service.fetchRecentMessages(forUid: fromId) { recentMessages in
+            self.recentMessages = recentMessages
+            for i in 0 ..< recentMessages.count {
+                let uid = fromId == recentMessages[i].fromId ? recentMessages[i].toId : recentMessages[i].fromId
                         
-                        
-                        do {
-                            return try document.data(as: ChatRowMessages.self)
-                        } catch {
-                            return nil
-                        }
-                    }
-//
+                self.userService.fetchUser(withUid: uid) { user in
+                    self.recentMessages[i].user = user
                 }
+            }
+            print("lalala - O \(self.recentMessages)")
+        }
+
     }
-    
    // отправка последнего сообщения в ChatView
     func persistRecentMessage() {
-        guard let user = user else { return }
-
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -91,12 +75,23 @@ class ChatViewModel: ObservableObject {
             .document(uid)
             .collection("messages")
             .document(toId)
-        
-        let data = ["timestamp": Timestamp(), "text": self.chatTexte, "fromId": uid, "toId": toId, "username": user.username, "fullname": user.fullname, "profileImageUrl": user.profileImageUrl] as [String : Any]
+            
+        let data = ["timestamp": Timestamp(), "text": self.chatTexte, "fromId": uid, "toId": toId] as [String : Any]
         
         document.setData(data) { error in
             if let error = error {
                 self.errorMessage = "Filed \(error)"
+                return
+            }
+        }
+        
+        Firestore.firestore().collection("recent_messages")
+             .document(toId)
+             .collection("messages")
+             .document(uid)
+             .setData(data) { error in
+            if let error = error {
+                self.errorMessage = "Filed error \(error)"
                 return
             }
         }
@@ -107,7 +102,7 @@ class ChatViewModel: ObservableObject {
         print(chatTexte)
         guard let fromId = Auth.auth().currentUser?.uid else { return }
         
-        guard let toId = user?.id else { return }
+        guard let toId = user.id else { return }
        let document = Firestore.firestore().collection("messages")
             .document(fromId)
             .collection(toId)
@@ -121,7 +116,6 @@ class ChatViewModel: ObservableObject {
                 return
             }
             self.persistRecentMessage()
-            
             self.chatTexte = ""
         }
         let recipiantMessageDocument = Firestore.firestore().collection("messages")

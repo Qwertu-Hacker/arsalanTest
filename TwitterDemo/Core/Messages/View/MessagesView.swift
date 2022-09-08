@@ -11,8 +11,7 @@ import Firebase
 
 struct MessagesView: View {
     @ObservedObject var viewModel: ChatViewModel
-    @Environment(\.presentationMode) var mode
-    init(user: Usert?) {
+    init(user: Usert) {
         self.viewModel = ChatViewModel(user: user)
     }
     var body: some View {
@@ -40,7 +39,8 @@ struct MessagesView: View {
                     ToolbarItem(placement: .principal) {
                                     VStack {
                                         Button {
-                                        } label: { Text(viewModel.user?.fullname ?? "")
+                                        } label: {
+                                        Text(viewModel.user.fullname)
                                         }
                                         .padding(.top).frame(height: 26.0)
                                         .font(.headline)
@@ -52,15 +52,15 @@ struct MessagesView: View {
                     }
                     ToolbarItem(placement:
                             .navigationBarTrailing) {
-                                Button {
-                                
+                                NavigationLink {
+                                    ProfileView(user: viewModel.user)
                                 } label: {
-                                    KFImage(URL(string: viewModel.user!.profileImageUrl))
+                                    KFImage(URL(string: viewModel.user.profileImageUrl))
                                         .resizable()
                                         .scaledToFill()
                                         .clipShape(Circle())
-                                        .frame(width: 50, height: 50)
-                                        .padding(.bottom)
+                                        .frame(width: 45, height: 45)
+//                                        .padding(.bottom)
                                 }
                             }
                 }
@@ -89,14 +89,15 @@ struct MessagesView: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 5)
-            
+//            .navigationBarHidden(true)
         }
-        
+//            .navigationBarHidden(true)
     }
 }
 
 struct MessagesView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
         MessagesView(user: Usert(id: NSUUID().uuidString,
                                  username: "batman",
                                  fullname: "Bruce Vaine",
@@ -104,6 +105,7 @@ struct MessagesView_Previews: PreviewProvider {
                                  email: "batman@gmail.com",
                                  password: ""))
             .previewInterfaceOrientation(.portrait)
+        }
     }
 }
 
@@ -120,10 +122,10 @@ struct MessageView: View {
                         Text(message.text)
                             .foregroundColor(Color.white)
                     }
-                    .padding(.vertical, 13)
-                    .padding(.horizontal, 13)
+                    .padding()
                     .background(Color.blue)
-                    .cornerRadius(20)
+                    .cornerRadius(30)
+                    .frame(maxWidth: 300, alignment: .trailing)
                 }
             } else {
                 HStack {
@@ -131,10 +133,10 @@ struct MessageView: View {
                         Text(message.text)
                             .foregroundColor(Color.black)
                     }
-                    .padding(.vertical, 13)
-                    .padding(.horizontal, 13)
+                    .padding()
                     .background(Color.white)
-                    .cornerRadius(20)
+                    .cornerRadius(30)
+                    .frame(maxWidth: 300, alignment: .leading)
                     Spacer()
                 }
             }
@@ -142,3 +144,4 @@ struct MessageView: View {
         .padding([.top, .leading, .trailing], 10)
     }
 }
+//}
