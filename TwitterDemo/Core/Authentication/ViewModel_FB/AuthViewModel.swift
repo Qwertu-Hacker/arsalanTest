@@ -18,7 +18,6 @@ class AuthViewModel: ObservableObject {
     
     init() {
         self.userSession = Auth.auth().currentUser
-        print("lala - \(self.userSession?.uid)")
         self.fetchUser()
     }
     func login(withEmail email: String, password: String){

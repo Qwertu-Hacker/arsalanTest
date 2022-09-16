@@ -684,25 +684,9 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "register(withEmail:password:fullname:username:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3D40D74C-A7CB-4F43-9361-3E3E0950468E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "init()"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "login(withEmail:password:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -844,9 +828,9 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "fetchUser()"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "uploadProfileImage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -860,8 +844,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "76"
+            endingLineNumber = "76"
             landmarkName = "fetchUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -876,8 +860,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "fetchUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1020,8 +1004,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "fetchUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1036,8 +1020,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "fetchUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1052,8 +1036,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
             landmarkName = "register(withEmail:password:fullname:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1068,8 +1052,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "register(withEmail:password:fullname:username:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1078,6 +1062,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9AB51FCD-1DEB-405D-A7E6-E7623F5C7660"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "uploadProfileImage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4A07436C-2E2C-4530-927B-D2C4DC89D9CB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1093,22 +1093,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4A07436C-2E2C-4530-927B-D2C4DC89D9CB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "uploadProfileImage(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F298DBB8-87D5-45ED-90B6-C67FB8276CB2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1116,8 +1100,8 @@
             filePath = "TwitterDemo/Core/Authentication/ViewModel_FB/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "fetchUser()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1182,8 +1166,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
             endingLineNumber = "68"
-            landmarkName = "ChatViewModel"
-            landmarkType = "3">
+            landmarkName = "persistRecentMessage()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

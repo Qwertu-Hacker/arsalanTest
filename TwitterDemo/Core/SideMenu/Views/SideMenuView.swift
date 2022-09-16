@@ -43,6 +43,13 @@ struct SideMenuView: View {
                         } label: {
                             SideMenuOptionRowView(viewModel: viewModel)
                             }
+                        }
+                    else if viewModel == .habit {
+                        NavigationLink {
+                            Habitt()
+                        } label: {
+                            SideMenuOptionRowView(viewModel: viewModel)
+                        }
                     } else if viewModel == .logout {
                         Button {
                             shouldShowLoginOptions.toggle()

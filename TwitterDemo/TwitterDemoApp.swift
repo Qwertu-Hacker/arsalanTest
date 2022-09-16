@@ -10,7 +10,7 @@ import Firebase
 
 @main
 struct TwitterDemoApp: App {
-    
+    let persistenceController = PersistenceController.shared
     @StateObject var viewModel = AuthViewModel()
     
     init() {
@@ -18,11 +18,9 @@ struct TwitterDemoApp: App {
     }
     var body: some Scene {
         WindowGroup {
-//            NavigationView {
-                ContentView()
-//            }
-            .environmentObject(viewModel)
-
+            ContentView()
+                .environmentObject(viewModel)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
