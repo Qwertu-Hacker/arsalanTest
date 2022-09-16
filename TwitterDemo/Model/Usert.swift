@@ -6,17 +6,18 @@
 //
 
 import FirebaseFirestoreSwift
+import Firebase
 
-    
-struct Usert: Hashable, Identifiable, Decodable {
-    
+struct Usert: Identifiable, Decodable {
     @DocumentID var id: String?
-        var namea: String
-        var fullnamea: String
-        var emaila: String
-        var passworda: String
-        var profileImageUrla: String
-
+    var username: String
+    var fullname: String
+    var profileImageUrl: String
+    var email: String
+    var password: String
     
+    var isCurrentUser: Bool { return Auth.auth().currentUser?.uid == id }
+    
+   
 }
 

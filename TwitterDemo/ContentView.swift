@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
+        NavigationView {
         Group {
             // no user loggen in
             if viewModel.userSession == nil {
@@ -20,18 +21,18 @@ struct ContentView: View {
             } else {
                 // have a logged in user
                 mainInterfaceView
+                }
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ContentView()
-        }
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//            ContentView()
+//    }
+//}
 
 extension ContentView {
     var mainInterfaceView: some View {
@@ -57,25 +58,34 @@ extension ContentView {
                 .offset(x: showMenu ? 0 : -300, y: 0)
                 .background(showMenu ? Color.white : Color.clear)
         }
-        .navigationTitle("Home")
+//        .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                if let user = viewModel.currentUser {
-                    Button {
-                        withAnimation(.easeInOut) {
-                        showMenu.toggle()
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image(systemName: "tornado")
+                        .foregroundColor(Color.blue)
+                        .frame(width: 50, height: 50)
+                }
+               ToolbarItem(placement: .navigationBarLeading) {
+                    if let user = viewModel.currentUser {
+                        Button {
+                            withAnimation(.easeInOut) {
+                            showMenu.toggle()
+                            }
+                        } label: {
+                            KFImage(URL(string: user.profileImageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 32, height: 32)
+                                .clipShape(Circle())
+                            
+                            Text("@\(user.username)")
+                                .foregroundColor(Color.gray)
                         }
-                    } label: {
-                        KFImage(URL(string: user.profileImageUrla))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 32, height: 32)
-                            .clipShape(Circle())
                     }
                 }
             }
-        }
+            .padding(.top, 5)
     .onAppear {
         showMenu = false
         }

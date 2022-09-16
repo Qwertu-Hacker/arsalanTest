@@ -46,7 +46,9 @@ class AuthViewModel: ObservableObject {
                 
             Firestore.firestore().collection("users")
                 .document(user.uid)
-                .setData(data) { _ in
+                .setData(data) { result in
+                        
+                    print("Send data\(data)")
                     self.didAuthenticateUser = true
             }
         }
