@@ -24,7 +24,9 @@ struct SerchBar: View {
                             .padding(8)
                     })
         }
-        .padding(.horizontal, 4)
+        .frame(height: 70)
+        .frame(maxHeight: .infinity, alignment: .top)
+        
     }
 }
 

@@ -9,7 +9,10 @@ import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedIndex = 0
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @EnvironmentObject var vm: ChatViewModel
     var body: some View {
+        if let user = authViewModel.currentUser {
         TabView(selection: $selectedIndex) {
             FeedView()
                 .onTapGesture {
@@ -17,6 +20,7 @@ struct MainTabView: View {
                 }
                 .tabItem {
                     Image(systemName: "house")
+                    Text("Home")
                 }.tag(0)
             
             ExploreView()
@@ -25,6 +29,7 @@ struct MainTabView: View {
                 }
                 .tabItem {
                     Image(systemName: "magnifyingglass")
+                    Text("Explore")
                 }.tag(1)
             
             NotificationsView()
@@ -33,21 +38,24 @@ struct MainTabView: View {
                 }
                 .tabItem {
                     Image(systemName: "bell")
+                    Text("Notification")
                 }.tag(2)
             
-            MessagesView()
+            ChatView(user: user)
                 .onTapGesture {
                     self.selectedIndex = 3
                 }
                 .tabItem {
                     Image(systemName: "envelope")
+                    Text("Messeges")
                 }.tag(3)
         }
     }
 }
+        }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-    }
-}
+//struct MainTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainTabView()
+//    }
+//}

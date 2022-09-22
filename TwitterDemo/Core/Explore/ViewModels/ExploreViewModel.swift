@@ -18,8 +18,8 @@ class ExploreViewModel: ObservableObject {
             let lowercasedQuery = serchText.lowercased()
             
             return users.filter({
-                $0.namea.contains(lowercasedQuery) ||
-                $0.fullnamea.lowercased().contains(lowercasedQuery)
+                $0.username.contains(lowercasedQuery) ||
+                $0.fullname.lowercased().contains(lowercasedQuery)
             })
         }
     }
