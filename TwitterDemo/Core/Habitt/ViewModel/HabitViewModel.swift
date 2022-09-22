@@ -10,20 +10,25 @@ import CoreData
 import UserNotifications
 
 class HabitViewModel: ObservableObject {
+    @Published var changeHabit: Bool = false
+
     @Published var addNewHabit: Bool = false
-    
     @Published var title: String = ""
     @Published var habitColor: String = "Card-1"
     @Published var weekDays: [String] = []
     @Published var isRemainderOn: Bool = false
     @Published var remainderText: String = ""
     @Published var remainderDate: Date = Date()
-
     @Published var showTimePicker: Bool = false
-    
     @Published var editHabit: Habit?
-    
     @Published var notificationAccess: Bool = false
+    
+//    let habit: Habit
+//    init(habit: Habit) {
+//        self.habit = habit
+//        requestNotificationAccess()
+//    }
+    
     
     init() {
         requestNotificationAccess()
@@ -109,6 +114,7 @@ class HabitViewModel: ObservableObject {
         remainderText = ""
         editHabit = nil
     }
+    
     func deleteHabit(content: NSManagedObjectContext) -> Bool {
         if let editHabit = editHabit {
             if editHabit.isRemaiderOn {
@@ -132,6 +138,7 @@ class HabitViewModel: ObservableObject {
             remainderText = editHabit.remainderText ?? ""
         }
     }
+    
     func doneStatus() -> Bool {
         let remainderStatus = isRemainderOn ? remainderText == "" : false
         

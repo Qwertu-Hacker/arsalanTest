@@ -21,7 +21,11 @@ struct Habitt: View {
             ScrollView(habits.isEmpty ? .init() : .vertical, showsIndicators: false) {
                 VStack(spacing: 15) {
                     ForEach(habits) { habit in
+                        NavigationLink {
+                            InHabit(habit: habit)
+                        } label: {
                         HabitCardView(habit: habit)
+                        }
                     }
                     // MARK: Add Habit Button
                     Button {
@@ -60,6 +64,11 @@ struct Habitt: View {
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding()
+//        .fullScreenCover(isPresented: $habitModel.adddNewHabit) {
+//
+//        } content: {
+//            InHabit()
+//        }
         .sheet(isPresented: $habitModel.addNewHabit) {
             habitModel.reseteDate()
         } content: {
@@ -67,7 +76,6 @@ struct Habitt: View {
                 .environmentObject(habitModel)
         }
     }
-    @ViewBuilder
     func HabitCardView(habit: Habit) -> some View {
         VStack(spacing: 6) {
             HStack {
@@ -75,6 +83,7 @@ struct Habitt: View {
                     .font(.callout)
                     .fontWeight(.semibold)
                     .lineLimit(1)
+                    .foregroundColor(Color.black)
                                     
                 Image(systemName: "bell.badge.fill")
                     .font(.callout)
@@ -148,11 +157,6 @@ struct Habitt: View {
                     .frame(width: percent * (proxy.size.width / 100), height: 150)
                 }
             }
-        }
-        .onTapGesture {
-            habitModel.editHabit = habit
-            habitModel.restoreEditDate()
-            habitModel.addNewHabit.toggle()
         }
     }
     func getDate(date: Date) -> String {
